@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <title>Pure JS Excel</title>
+  </head>
+  <body>
+    <div id="root">
+      <div class="excel">
+        <div class="excel__header">
+          <input type="text" value="New table" class="input" />
+          <div>
+            <button>
+              <span class="material-icons"> exit_to_app </span>
+            </button>
+            <button>
+              <span class="material-icons"> delete </span>
+            </button>
+          </div>
+        </div>
+        <div class="excel__toolbar">
+          <button>
+            <span class="material-icons"> format_align_left </span>
+          </button>
+          <button>
+            <span class="material-icons"> format_align_center </span>
+          </button>
+          <button>
+            <span class="material-icons"> format_align_right </span>
+          </button>
+          <button>
+            <span class="material-icons"> format_bold </span>
+          </button>
+          <button>
+            <span class="material-icons"> format_italic </span>
+          </button>
+          <button>
+            <span class="material-icons"> format_underlined </span>
+          </button>
+        </div>
+        <div class="excel__formula">
+          <div class="info">fs</div>
+          <div class="input" contenteditable="true" spellcheck="false"></div>
+        </div>
+        <div class="excel__table">
+          <div class="row">
+            <div class="row-info"></div>
+            <div class="row-data">
+              <div class="column">A</div>
+              <div class="column">B</div>
+              <div class="column">C</div>
+              <div class="column">A</div>
+              <div class="column">B</div>
+              <div class="column">C</div>
+              <div class="column">A</div>
+              <div class="column">B</div>
+              <div class="column">C</div>
+              <div class="column">A</div>
+              <div class="column">B</div>
+              <div class="column">C</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-info">1</div>
+            <div class="row-data">
+              <div contenteditable class="cell">1A</div>
+              <div contenteditable class="cell">1B</div>
+              <div contenteditable class="cell">1C</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-info">2</div>
+            <div class="row-data">
+              <div contenteditable class="cell">2A</div>
+              <div contenteditable class="cell">2B</div>
+              <div contenteditable class="cell">2C</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
