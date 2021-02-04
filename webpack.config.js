@@ -4,15 +4,16 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 const isDev = process.env.NODE_ENV === "development";
-const isProd = !isDev;
+// const isProd = !isDev;
 
 const filename = (ext) => {
   return isDev ? `[name].${ext}` : `[name].[hash:7].${ext}`;
 };
 const getJsLoaders = () => {
-  const loader = [
+  const loaders = [
     {
       loader: "babel-loader",
       options: {
@@ -20,8 +21,7 @@ const getJsLoaders = () => {
       },
     },
   ];
-  if (isDev) loader.push("eslint-loader");
-  return loader;
+  return loaders;
 };
 
 module.exports = {
@@ -34,6 +34,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new ESLintPlugin(),
     new HtmlWebpackPlugin({
       template: "index.html",
     }),
