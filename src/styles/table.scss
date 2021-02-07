@@ -64,7 +64,7 @@
   }
   & .col-resize {
     position: absolute;
-    right: 0;
+    right: -4px;
     top: 0;
     bottom: 0;
     width: 4px;
@@ -80,7 +80,7 @@
     position: absolute;
     right: 0;
     left: 0;
-    bottom: 0;
+    bottom: -4px;
     height: 4px;
     background: $primary-color;
     opacity: 0;
