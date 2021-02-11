@@ -15,7 +15,7 @@ export class Formula extends ExcelComponent {
     const $formula = this.$root.find("#input");
 
     this.$on("table:selection", ($cell) => {
-      $formula.text($cell.text());
+      $formula.text($cell.data.value) || "";
     });
     this.$on("table:text", (text) => {
       $formula.text(text);
@@ -29,7 +29,8 @@ export class Formula extends ExcelComponent {
     `;
   }
   onInput(event) {
-    this.$notify("formula:text", $(event.target).text());
+    const text = $(event.target).text();
+    this.$notify("formula:text", text);
   }
   onKeydown(event) {
     const keys = ["Enter", "Tab"];
