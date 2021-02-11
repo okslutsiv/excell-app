@@ -11,8 +11,9 @@
   & span {
     font-size: 18px;
   }
-  &:active {
+  &.active {
     color: $color;
+    background-color: #bbb;
   }
   &:hover {
     cursor: pointer;

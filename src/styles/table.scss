@@ -45,9 +45,7 @@
     align-items: center;
   }
   & .cell {
-    display: flex;
     padding: 5px;
-    align-items: center;
     width: $cell-width;
     min-width: 40px;
     height: 100%;

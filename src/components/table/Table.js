@@ -3,12 +3,14 @@ import { createTable } from "./table.template";
 import { handleResize, shouldResize } from "./resizeHandler";
 import { TableSelection } from "./TableSelection";
 import { $ } from "@core/dom";
+import { parse } from "@/utils";
 
 import {
   isCell,
   handleMouseSelection,
   moveSelectionOnKeydown,
 } from "./selectHandler";
+import { editText } from "../../core/redux/actions";
 
 export class Table extends ExcelComponent {
   static classNames = "excel__table";
@@ -16,9 +18,21 @@ export class Table extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: "Table",
-      listeners: ["mousedown", "keydown", "input"],
+      listeners: ["mousedown", "keydown", "input", "dblclick"],
+      subscribes: ["cellsData", "cellsStyles"],
       ...options,
     });
+    this.defaults = {
+      cols: {
+        minWidth: 40,
+        standardWidth: 120,
+      },
+      rows: {
+        minHeight: 12,
+        standardHeight: 24,
+        count: 25,
+      },
+    };
     this.prepare();
   }
   prepare() {
@@ -31,16 +45,27 @@ export class Table extends ExcelComponent {
     this.$notify("table:selection", $startCell);
 
     this.$on("formula:text", (text) => {
-      this.selection.$current.text(text);
+      this.selection.$current.attr("data-value", text).text(parse(text));
+      this.$dispatch(
+        editText({
+          id: this.selection.$current.data.id,
+          text: this.selection.$current.data.value,
+        })
+      );
     });
-    this.$on("formula:done", () => this.selection.$current.focus());
+    this.$on("formula:done", () => {
+      this.selection.$current.focus();
+    });
+    this.$on("toolbar:applyStyle", (style) => {
+      this.selection.selection.forEach(($el) => $el.css(style));
+    });
   }
   toHTML() {
-    return createTable(20);
+    return createTable(this);
   }
   onMousedown(e) {
     if (shouldResize(e)) {
-      handleResize(this.$root, e);
+      handleResize(this, e);
     }
     if (isCell(e)) {
       handleMouseSelection(e, this);
@@ -50,8 +75,16 @@ export class Table extends ExcelComponent {
     moveSelectionOnKeydown(e, this);
   }
   onInput(event) {
-    this.$notify("table:text", $(event.target).text());
+    const $cell = $(event.target);
+    this.$notify("table:text", $cell.text());
+    this.$dispatch(editText({ id: $cell.data.id, text: $cell.text() }));
   }
+  onDblclick(e) {
+    if (shouldResize(e)) {
+      handleResize(this, e);
+    }
+  }
+  $onStateChange() {}
 }
 // 621 ms  Scripting
 // 2086 ms  Rendering

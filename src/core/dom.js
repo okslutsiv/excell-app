@@ -13,8 +13,8 @@ class Dom {
     return this.$el.outerHTML.trim();
   }
   text(text) {
-    if (typeof text === "string") {
-      this.$el.innerText = text.trim();
+    if (typeof text === "string" || typeof text === "number") {
+      this.$el.innerText = text;
       return this;
     }
     if (typeof text === "function") {
@@ -25,6 +25,13 @@ class Dom {
       return this.$el.value.trim();
     }
     return this.$el.innerText.trim();
+  }
+  attr(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value);
+      return this;
+    }
+    return this.$el.getAttribute(name);
   }
   clear() {
     this.innerHTML = "";
@@ -49,6 +56,11 @@ class Dom {
       this.$el.style[key] = styles[key];
     });
     return this;
+  }
+  getStyle(prop) {
+    if (!prop) return this.$el.style;
+    if (typeof prop !== "string") throw new Error("Invalid style property");
+    return this.$el.style[prop];
   }
   addClass(className) {
     this.$el.classList.add(className);

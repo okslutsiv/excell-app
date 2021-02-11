@@ -1,13 +1,15 @@
 import { $ } from "@core/dom";
+import { setCurrentSelection } from "../../core/redux/actions";
 
 export const isCell = (e) => !!$(e.target).data.id;
 
 export const handleMouseSelection = (e, instance) => {
   const $target = $(e.target);
-  const { $root, selection, $notify } = instance;
+  const { $root, selection, $notify, $dispatch } = instance;
   if (!e.shiftKey) {
     selection.selectOne($target);
     $notify("table:selection", $target);
+    $dispatch(setCurrentSelection([$target.data.id]));
   } else if (e.shiftKey) {
     const { $current } = selection;
 
@@ -24,11 +26,12 @@ export const handleMouseSelection = (e, instance) => {
     }, []);
     const $elements = rangeIds.map((id) => $root.find(`[data-id="${id}"]`));
     selection.selectGroup($elements);
+    $dispatch(setCurrentSelection(rangeIds));
   }
 };
 
 export const moveSelectionOnKeydown = (e, instance) => {
-  const { selection, $root, $notify } = instance;
+  const { selection, $root, $notify, $dispatch } = instance;
   const allowedKeys = [
     "Enter",
     "Tab",
@@ -46,6 +49,7 @@ export const moveSelectionOnKeydown = (e, instance) => {
     const $next = $root.find(getNextCell(key, id));
     selection.selectOne($next);
     $notify("table:selection", $next);
+    $dispatch(setCurrentSelection([$next.data.id]));
 
     function getNextCell(key, id) {
       let { row, col } = id;

@@ -20,6 +20,8 @@
     "require-jsdoc": "off",
     "operator-linebreak": "off",
     "indent": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "max-len": "warn",
+    "space-before-function-paren": "off"
   }
 }
