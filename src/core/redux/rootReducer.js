@@ -8,11 +8,10 @@ import {
 } from "./types";
 
 export const initialState = {
-  tableTitle: "",
+  id: null,
+  tableTitle: "New Table",
   colState: {},
   rowState: {},
-  // currentCell: "",
-  // currentCellText: "",
   cellsData: {},
   cellsStyles: {},
   currentSelection: [],

@@ -43,7 +43,7 @@ export class Toolbar extends StatefulComponent {
   }
   getInitialState() {
     const { cellsStyles } = this.store.getState();
-    const firstCellStyles = cellsStyles["1:0"];
+    const firstCellStyles = cellsStyles["1:0"] || this.defaults.style;
 
     const buttons = JSON.parse(JSON.stringify(initialButtons)).map((button) => {
       const [style, value] = Object.entries(button.value)[0];
