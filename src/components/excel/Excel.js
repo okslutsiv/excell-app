@@ -30,8 +30,7 @@ export class Excel {
     });
     return $root;
   }
-  render() {
-    this.$el.append(this.getRoot());
+  init() {
     this.storeSubscriber.subscribeComponents(this.components);
     this.components.forEach((c) => c.init());
   }

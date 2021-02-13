@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-cli serve --open --config ./webpack.config.js",
-    "build": "cross-env NODE_ENV=production webpack --mode production"
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "lint": "npx eslint ./src"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

@@ -10,6 +10,7 @@ export const createStore = (rootReducer, initialState) => {
       listeners.push(fn);
       return {
         unsubscribe() {
+          console.log("Bye, store!");
           listeners.filter((l) => l !== fn);
         },
       };

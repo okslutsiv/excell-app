@@ -34,7 +34,7 @@ class Dom {
     return this.$el.getAttribute(name);
   }
   clear() {
-    this.innerHTML = "";
+    this.$el.innerHTML = "";
     return this;
   }
   closest(selector) {
