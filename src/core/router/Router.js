@@ -21,7 +21,8 @@ export class Router {
       this.page.destroy();
     }
     const path = activeRoute.pathWithoutParams();
-    if (!path || !Object.keys(this.routes).includes(path)) {
+    if (!path) activeRoute.navigate("#dashboard");
+    if (!Object.keys(this.routes).includes(path)) {
       throw new Error("Invalid path!");
     }
     const Page = this.routes[path];
